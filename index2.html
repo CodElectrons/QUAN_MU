@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QUANTRON MUSEUM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --bg: #0c0c0c;
+      --fg: #e0e0e0;
+      --accent: #00bcd4;
+      --card: #1a1a1a;
+      --border: #2c2c2c;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg);
+      color: var(--fg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      color: var(--accent);
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #aaa;
+    }
+
+    video {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 12px;
+      border: 2px solid var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .exhibit {
+      display: none;
+      max-width: 800px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-top: 1rem;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .exhibit img {
+      width: 100%;
+      border-radius: 10px;
+      margin: 1rem 0;
+      border: 1px solid var(--border);
+    }
+
+    .exhibit h2 {
+      color: var(--accent);
+    }
+
+    p {
+      line-height: 1.6;
+      white-space: pre-line;
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      background-color: var(--accent);
+      color: var(--bg);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .button:hover {
+      background-color: #00acc1;
+    }
+
+    audio {
+      width: 100%;
+      margin-top: 1rem;
+    }
+
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>QUANTRON MUSEUM</h1>
+    <p>Created by QUANTRON TEAM</p>
+  </header>
+
+  <video id="video" autoplay playsinline muted></video>
+
+  <div id="monaLisa" class="exhibit">
+    <h2>Mona Lisa</h2>
+    <img src="Leonardo_da_Vinci_-_Mona_Lisa.jpg" alt="Mona Lisa">
+    <audio controls src="Mona_Lisa_audio.mp3"></audio>
+    <p>🎤 "Ladies and gentlemen, welcome to the world-famous Louvre Museum! Follow me closely, because we’re approaching one of the most iconic masterpieces in all of art history — the Mona Lisa!"
+
+        🎨 "Now, take a look just ahead — yes, that small painting behind the glass, always surrounded by a crowd. That’s her. The Mona Lisa. Painted by none other than Leonardo da Vinci, around the year 1503 to 1506 — although da Vinci, being the perfectionist he was, likely kept adding touches until about 1517."
+        
+        🖼️ "What makes her so famous, you ask? Well, it’s not just her smile — though that mysterious, almost secretive grin is legendary. It’s the way her eyes seem to follow you, her lifelike presence, and the innovative painting techniques da Vinci used. This work is a stunning example of sfumato — that soft blending of colors that gives her skin its silky texture."
+        
+        📏 "And yes, folks — she’s smaller than most expect! The painting is just 77 by 53 centimeters — about 30 by 21 inches. But don’t let the size fool you. She packs centuries of fascination into that frame."
+        
+        🔍 "Art historians believe the model was Lisa Gherardini, the wife of a wealthy Florentine merchant — hence the name ‘Mona Lisa,’ which is short for ‘Madonna Lisa.’ But da Vinci never gave it to her family — he kept it with him until he died in France."
+        
+        🖼️ "Today, she sits in this climate-controlled, bulletproof glass case, drawing more than 10 million visitors a year. And yes — she’s smiling at you too."
+        
+        📸 "Feel free to take your photos, but remember: no flash! And when you're done, follow me — we've got thousands more treasures to discover!"</p>
+    <button class="button" onclick="returnHome()">Check Again</button>
+  </div>
+
+  <div id="papyrus" class="exhibit">
+    <h2>Papyrus of Ani</h2>
+    <img src="Papyrus of Ani.jpg" alt="Papyrus of Ani">
+    <audio controls src="Papyrus of Ani.mp3"></audio>
+    <p>🎙️ Tour Guide Script – The Papyrus of Ani
+        Welcome, everyone! Gather 'round as we step back over 3,000 years into ancient Egypt—magic, and the afterlife.
+        Today, we're exploring one of the most beautiful and significant treasures of ancient Egyptian culture: The Papyrus of Ani.
+        📜 What Is It?
+        The Papyrus of Ani is a Book of the Dead—a funerary text created to guide the deceased through the treacherous journey of the afterlife.
+        Think of it as a spiritual map and survival guide, filled with spells, prayers, and illustrations.
+        This particular papyrus was made for a scribe named Ani, who lived around 1250 BCE during Egypt’s 19th Dynasty.
+        👨‍💼 Who Was Ani?
+        Ani was a high-ranking scribe in Thebes, likely someone of wealth and influence.
+        Because of his status, his Book of the Dead was incredibly lavish, written in cursive hieroglyphs and adorned with vivid, detailed illustrations—some of the finest ever discovered.
+        🎨 Highlights of the Scroll
+        The scroll itself is over 78 feet long and features scenes like:
+        •	The Weighing of the Heart, where Ani’s heart is weighed against the feather of Ma’at, goddess of truth.
+        If balanced, he passes into the afterlife. If not... well, he’s devoured by the fearsome creature Ammit!
+        •	Prayers to Ra, the sun god, to grant safe passage through the underworld.
+        •	Spells for Transformation, like becoming a falcon or lotus, to navigate the spirit world more easily.
+        📍 Where Is It Now?
+        You can find this masterpiece at the British Museum in London, where it was brought in the late 19th century.
+        It was painstakingly unrolled, studied, and is now digitally preserved for the world to admire.
+        🎤 Fun Fact:
+        Despite being called the Book of the Dead, it’s actually more about life—eternal life.
+        It shows us how the Egyptians viewed death not as an end, but a transition.
+        So as we wrap up our journey, remember: this papyrus isn't just ink on scroll—
+        it’s a voice from across millennia, whispering secrets of an ancient world’s hopes, fears, and beliefs about what lies beyond.</p>
+    <button class="button" onclick="returnHome()">Check Again</button>
+  </div>
+
+  <div id="smartwatch" class="exhibit">
+    <h2>Apple Watch Series 8</h2>
+    <img src="apple-watch.jpg" alt="Apple Watch">
+    <p>Welcome, my friend — you’re not just here for a watch... you’re here for the future on your wrist.
+        Apple Watch Series 8 — this isn’t just any smartwatch. This is a precision-engineered piece of wearable intelligence. Crafted with a sleek aluminum or stainless steel case, edge-to-edge always-on Retina display, and the kind of tech under the hood that makes it a silent powerhouse.
+        
+        Health tracking? Boom. The Series 8 brings you an upgraded temperature sensor, perfect for cycle tracking and monitoring overnight changes like never before.
+        
+        ECG? Blood Oxygen? Fall Detection? Crash Detection? All built-in. This isn’t just wellness — this is emergency-ready technology that can literally save your life.
+        
+        Stay connected without reaching for your phone — take calls, reply to texts, stream music, even use Apple Pay — right from your wrist. With cellular models, leave your phone at home and still be 100% in the loop.
+        
+        Under the hood? You’re working with the S8 SiP chip, fast, efficient, and optimized for smooth multitasking. Battery life? A full day — and with Low Power Mode, you’re getting up to 36 hours.
+        
+        Style? Midnight, Starlight, Silver, and Product(RED) — match it with any band from sporty to luxurious and boom — you're flexing personal style and smart tech in one go.
+        
+        So whether you're an athlete, a tech-head, or just someone who likes to stay one step ahead, the Series 8 isn’t just a smart choice — it's the smartest choice.
+        
+        Ready to seal the deal? Because I’ve got one right here, ready to go home with you today — unbox the future.</p>
+    <button class="button" onclick="returnHome()">Check Again</button>
+  </div>
+
+  <div id="tesla" class="exhibit">
+    <h2>Tesla Cybertruck</h2>
+    <img src="Tesla.jpg" alt="Tesla Cybertruck">
+    <p>🚀 Welcome to the future of utility—meet the Tesla Cybertruck.
+        Forget everything you thought you knew about pickup trucks. The Cybertruck doesn’t just break the mold—it shatters it. With its radical design, military-grade toughness, and all-electric powertrain, this is a vehicle built for both rugged adventures and cutting-edge innovation.
+        🛡️ Ultra-Hard Exterior
+        This isn't your average truck body. The Cybertruck is made from cold-rolled stainless steel, the same material used in rockets. It’s dent-resistant, corrosion-resistant, and designed to take a beating. Tesla even showed it withstanding sledgehammers in testing—this thing means business.
+        💪 Extreme Performance
+        Need muscle? The Cybertruck can tow over 14,000 pounds and carry up to 3,500 pounds of payload. It accelerates from 0 to 60 in as little as 2.6 seconds in the tri-motor version—yes, faster than many sports cars, and it’s a truck.
+        🔋 Massive Range
+        With up to 500 miles of range on a single charge (tri-motor variant), you can take the Cybertruck across long distances without range anxiety. Whether you’re heading off-road or off-grid, it’s got you covered.
+        🧠 Tech-Savvy Interior
+        Inside the cabin, you’ll find a sleek, minimalistic design powered by a 17-inch touchscreen and seating for six. It’s futuristic yet functional, with Tesla's signature infotainment system and Full Self-Driving capability (optional), so your truck keeps getting better over time.
+        🌐 Versatility & Utility
+        From the retractable tonneau cover to the adaptive air suspension that adjusts ride height, the Cybertruck is engineered for flexibility. It features a built-in ramp, 120V/240V outlets, and even has room for a tent and a kitchen in the bed with Tesla’s optional camping setup.
+        🔌 Charge Anywhere
+        With access to the Tesla Supercharger network and options for solar integration, you’re never far from your next charge—even off the grid.
+        🔥 The Cool Factor
+        Let’s be honest—there’s nothing else like it on the road. Heads will turn, jaws will drop, and you’ll know you’re driving not just a truck—but a statement.</p>
+    <button class="button" onclick="returnHome()">Check Again</button>
+  </div>
+
+  <footer>
+    Pulse Codes → 3: Mona Lisa | 4: Papyrus of Ani | 5: Smart Watch | 6: Tesla Cybertruck
+  </footer>
+
+  <script>
+    const video = document.getElementById("video");
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    const exhibits = {
+      3: "monaLisa",
+      4: "papyrus",
+      5: "smartwatch",
+      6: "tesla"
+    };
+
+    let pulseCount = 0;
+    let lastBrightness = null;
+    let lastFlashTime = 0;
+    const pulseThreshold = 50;
+    const debounceTime = 200;
+    const decisionDelay = 2000;
+    let decisionTimeout = null;
+    let detecting = true;
+    let stream = null;
+
+    function getBrightness(frame) {
+      let total = 0;
+      for (let i = 0; i < frame.data.length; i += 4) {
+        total += (frame.data[i] + frame.data[i+1] + frame.data[i+2]) / 3;
+      }
+      return total / (frame.data.length / 4);
+    }
+
+    function detectPulse() {
+      if (!detecting) return;
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const brightness = getBrightness(frame);
+      const now = Date.now();
+
+      if (lastBrightness !== null) {
+        const diff = brightness - lastBrightness;
+        if (diff > pulseThreshold && now - lastFlashTime > debounceTime) {
+          pulseCount++;
+          lastFlashTime = now;
+          if (decisionTimeout) clearTimeout(decisionTimeout);
+          decisionTimeout = setTimeout(() => {
+            handlePulseDecision(pulseCount);
+            pulseCount = 0;
+          }, decisionDelay);
+        }
+      }
+
+      lastBrightness = brightness;
+      requestAnimationFrame(detectPulse);
+    }
+
+    function handlePulseDecision(count) {
+      detecting = false;
+      const exhibitId = exhibits[count];
+      if (exhibitId) {
+        stopCamera();
+        document.getElementById("video").style.display = "none";
+        document.getElementById(exhibitId).style.display = "block";
+      } else {
+        pulseCount = 0;
+        lastBrightness = null;
+        detecting = true;
+        detectPulse();
+      }
+    }
+
+    function returnHome() {
+      Object.values(exhibits).forEach(id => {
+        document.getElementById(id).style.display = "none";
+      });
+      document.getElementById("video").style.display = "block";
+      startCamera();
+    }
+
+    function startCamera() {
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } })
+        .then(s => {
+          stream = s;
+          video.srcObject = stream;
+          video.onloadedmetadata = () => {
+            detecting = true;
+            detectPulse();
+          };
+        })
+        .catch(err => {
+          alert("Camera access is required to detect light pulses.");
+          console.error(err);
+        });
+    }
+
+    function stopCamera() {
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+        stream = null;
+      }
+    }
+
+    startCamera();
+  </script>
+</body>
+</html>
