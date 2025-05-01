@@ -223,6 +223,9 @@
     };
 
     let pulseCount = 0;
+    let brightnessHistory = [];
+    const historySize = 20;
+    const dynamicThreshold = 1.3;
     let lastBrightness = null;
     let lastFlashTime = 0;
     const pulseThreshold = 50;
@@ -242,6 +245,7 @@
 
     function detectPulse() {
       if (!detecting) return;
+
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -249,22 +253,28 @@
       const brightness = getBrightness(frame);
       const now = Date.now();
 
-      if (lastBrightness !== null) {
-        const diff = brightness - lastBrightness;
-        if (diff > pulseThreshold && now - lastFlashTime > debounceTime) {
-          pulseCount++;
-          lastFlashTime = now;
-          if (decisionTimeout) clearTimeout(decisionTimeout);
-          decisionTimeout = setTimeout(() => {
-            handlePulseDecision(pulseCount);
-            pulseCount = 0;
-          }, decisionDelay);
-        }
+      // Update history
+      brightnessHistory.push(brightness);
+      if (brightnessHistory.length > historySize) {
+          brightnessHistory.shift();
       }
 
-      lastBrightness = brightness;
+      const avgBrightness = brightnessHistory.reduce((a, b) => a + b, 0) / brightnessHistory.length;
+
+      if (brightness > avgBrightness * dynamicThreshold && now - lastFlashTime > debounceTime) {
+          pulseCount++;
+          lastFlashTime = now;
+
+          if (decisionTimeout) clearTimeout(decisionTimeout);
+          decisionTimeout = setTimeout(() => {
+          handlePulseDecision(pulseCount);
+          pulseCount = 0;
+      }, decisionDelay);
+    }
+
       requestAnimationFrame(detectPulse);
     }
+
 
     function handlePulseDecision(count) {
       detecting = false;
@@ -296,6 +306,7 @@
           video.srcObject = stream;
           video.onloadedmetadata = () => {
             detecting = true;
+            brightnessHistory = [];
             detectPulse();
           };
         })
