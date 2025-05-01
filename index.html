@@ -4,319 +4,486 @@
   <meta charset="UTF-8">
   <title>QUANTRON MUSEUM</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    /* Basic styling using Tailwind classes where possible,
+       but keeping some CSS variables for theme consistency */
     :root {
-      --bg: #0c0c0c;
-      --fg: #e0e0e0;
-      --accent: #00bcd4;
-      --card: #1a1a1a;
-      --border: #2c2c2c;
+      --accent: #00bcd4; /* Cyan accent color */
+      --card: #1a1a1a;   /* Dark card background */
+      --border: #2c2c2c; /* Border color */
     }
 
+    /* Apply base styles and font */
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: var(--bg);
-      color: var(--fg);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 2rem 1rem;
+      font-family: 'Inter', sans-serif;
     }
 
-    header {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
-    header h1 {
-      font-size: 2.5rem;
-      color: var(--accent);
-    }
-
-    header p {
-      font-size: 1.2rem;
-      color: #aaa;
-    }
-
-    video {
-      width: 100%;
-      max-width: 500px;
-      border-radius: 12px;
-      border: 2px solid var(--accent);
-      margin-bottom: 1rem;
-    }
-
+    /* Style for exhibit cards */
     .exhibit {
-      display: none;
-      max-width: 800px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 2rem;
-      margin-top: 1rem;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+      background-color: var(--card);
+      border-color: var(--border);
     }
 
-    .exhibit img {
-      width: 100%;
-      border-radius: 10px;
-      margin: 1rem 0;
-      border: 1px solid var(--border);
-    }
-
+    /* Style for exhibit titles */
     .exhibit h2 {
       color: var(--accent);
     }
 
-    p {
-      line-height: 1.6;
-      white-space: pre-line;
-    }
-
+    /* Style for buttons */
     .button {
-      display: inline-block;
-      margin-top: 2rem;
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
       background-color: var(--accent);
-      color: var(--bg);
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s;
+      transition: background-color 0.3s ease; /* Smooth hover effect */
     }
 
     .button:hover {
-      background-color: #00acc1;
+      background-color: #00acc1; /* Slightly darker cyan on hover */
     }
 
+    /* Style for video element */
+    video {
+        border: 2px solid var(--accent);
+        /* Ensure video maintains aspect ratio and doesn't overflow */
+        object-fit: cover;
+    }
+
+    /* Style for audio player */
     audio {
-      width: 100%;
-      margin-top: 1rem;
+        filter: invert(90%) sepia(20%) saturate(500%) hue-rotate(180deg) brightness(100%) contrast(90%);
+        /* Style audio player to fit dark theme */
     }
 
-    footer {
-      margin-top: 3rem;
-      text-align: center;
-      color: #777;
+    /* Hide elements initially */
+    .hidden {
+        display: none;
     }
+
   </style>
 </head>
-<body>
-  <header>
-    <h1>QUANTRON MUSEUM</h1>
-    <p>Created by QUANTRON TEAM</p>
+<body class="bg-gray-900 text-gray-200 flex flex-col items-center min-h-screen p-4 md:p-8">
+  <header class="text-center mb-8">
+    <h1 class="text-4xl md:text-5xl font-bold mb-2" style="color: var(--accent);">QUANTRON MUSEUM</h1>
+    <p class="text-lg text-gray-400">Created by QUANTRON TEAM</p>
   </header>
 
-  <video id="video" autoplay playsinline muted></video>
+  <video id="video" autoplay playsinline muted class="w-full max-w-lg rounded-lg shadow-lg mb-4"></video>
 
-  <div id="monaLisa" class="exhibit">
-    <h2>Mona Lisa</h2>
-    <img src="Leonardo_da_Vinci_-_Mona_Lisa.jpg" alt="Mona Lisa">
-    <audio controls src="Mona_Lisa_audio.mp3"></audio>
-    <p>🎤 "Ladies and gentlemen, welcome to the world-famous Louvre Museum! Follow me closely, because we’re approaching one of the most iconic masterpieces in all of art history — the Mona Lisa!"
+  <canvas id="processingCanvas" class="hidden"></canvas>
 
-        🎨 "Now, take a look just ahead — yes, that small painting behind the glass, always surrounded by a crowd. That’s her. The Mona Lisa. Painted by none other than Leonardo da Vinci, around the year 1503 to 1506 — although da Vinci, being the perfectionist he was, likely kept adding touches until about 1517."
-        
-        🖼️ "What makes her so famous, you ask? Well, it’s not just her smile — though that mysterious, almost secretive grin is legendary. It’s the way her eyes seem to follow you, her lifelike presence, and the innovative painting techniques da Vinci used. This work is a stunning example of sfumato — that soft blending of colors that gives her skin its silky texture."
-        
-        📏 "And yes, folks — she’s smaller than most expect! The painting is just 77 by 53 centimeters — about 30 by 21 inches. But don’t let the size fool you. She packs centuries of fascination into that frame."
-        
-        🔍 "Art historians believe the model was Lisa Gherardini, the wife of a wealthy Florentine merchant — hence the name ‘Mona Lisa,’ which is short for ‘Madonna Lisa.’ But da Vinci never gave it to her family — he kept it with him until he died in France."
-        
-        🖼️ "Today, she sits in this climate-controlled, bulletproof glass case, drawing more than 10 million visitors a year. And yes — she’s smiling at you too."
-        
-        📸 "Feel free to take your photos, but remember: no flash! And when you're done, follow me — we've got thousands more treasures to discover!"</p>
-    <button class="button" onclick="returnHome()">Check Again</button>
+  <div id="monaLisa" class="exhibit hidden w-full max-w-3xl border rounded-lg p-6 md:p-8 mt-4 shadow-xl">
+    <h2 class="text-2xl md:text-3xl font-bold mb-4">Mona Lisa</h2>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/800px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg"
+         alt="Mona Lisa"
+         onerror="this.onerror=null; this.src='https://placehold.co/800x500/1a1a1a/e0e0e0?text=Mona+Lisa+Image';"
+         class="w-full rounded-md my-4 border border-gray-700">
+    <audio controls src="Mona_Lisa_audio.mp3" class="w-full mt-4"></audio>
+    <p class="mt-4 leading-relaxed whitespace-pre-line text-gray-300">
+🎤 "Ladies and gentlemen, welcome to the world-famous Louvre Museum! Follow me closely, because we’re approaching one of the most iconic masterpieces in all of art history — the Mona Lisa!"
+
+🎨 "Now, take a look just ahead — yes, that small painting behind the glass, always surrounded by a crowd. That’s her. The Mona Lisa. Painted by none other than Leonardo da Vinci, around the year 1503 to 1506 — although da Vinci, being the perfectionist he was, likely kept adding touches until about 1517."
+
+🖼️ "What makes her so famous, you ask? Well, it’s not just her smile — though that mysterious, almost secretive grin is legendary. It’s the way her eyes seem to follow you, her lifelike presence, and the innovative painting techniques da Vinci used. This work is a stunning example of sfumato — that soft blending of colors that gives her skin its silky texture."
+
+📏 "And yes, folks — she’s smaller than most expect! The painting is just 77 by 53 centimeters — about 30 by 21 inches. But don’t let the size fool you. She packs centuries of fascination into that frame."
+
+🔍 "Art historians believe the model was Lisa Gherardini, the wife of a wealthy Florentine merchant — hence the name ‘Mona Lisa,’ which is short for ‘Madonna Lisa.’ But da Vinci never gave it to her family — he kept it with him until he died in France."
+
+🖼️ "Today, she sits in this climate-controlled, bulletproof glass case, drawing more than 10 million visitors a year. And yes — she’s smiling at you too."
+
+📸 "Feel free to take your photos, but remember: no flash! And when you're done, follow me — we've got thousands more treasures to discover!"
+    </p>
+    <button class="button text-gray-900 font-semibold py-2 px-4 rounded-md mt-6 block mx-auto" onclick="returnHome()">Check Again</button>
   </div>
 
-  <div id="papyrus" class="exhibit">
-    <h2>Papyrus of Ani</h2>
-    <img src="Papyrus of Ani.jpg" alt="Papyrus of Ani">
-    <audio controls src="Papyrus of Ani.mp3"></audio>
-    <p>🎙️ Tour Guide Script – The Papyrus of Ani
-        Welcome, everyone! Gather 'round as we step back over 3,000 years into ancient Egypt—magic, and the afterlife.
-        Today, we're exploring one of the most beautiful and significant treasures of ancient Egyptian culture: The Papyrus of Ani.
-        📜 What Is It?
-        The Papyrus of Ani is a Book of the Dead—a funerary text created to guide the deceased through the treacherous journey of the afterlife.
-        Think of it as a spiritual map and survival guide, filled with spells, prayers, and illustrations.
-        This particular papyrus was made for a scribe named Ani, who lived around 1250 BCE during Egypt’s 19th Dynasty.
-        👨‍💼 Who Was Ani?
-        Ani was a high-ranking scribe in Thebes, likely someone of wealth and influence.
-        Because of his status, his Book of the Dead was incredibly lavish, written in cursive hieroglyphs and adorned with vivid, detailed illustrations—some of the finest ever discovered.
-        🎨 Highlights of the Scroll
-        The scroll itself is over 78 feet long and features scenes like:
-        •	The Weighing of the Heart, where Ani’s heart is weighed against the feather of Ma’at, goddess of truth.
-        If balanced, he passes into the afterlife. If not... well, he’s devoured by the fearsome creature Ammit!
-        •	Prayers to Ra, the sun god, to grant safe passage through the underworld.
-        •	Spells for Transformation, like becoming a falcon or lotus, to navigate the spirit world more easily.
-        📍 Where Is It Now?
-        You can find this masterpiece at the British Museum in London, where it was brought in the late 19th century.
-        It was painstakingly unrolled, studied, and is now digitally preserved for the world to admire.
-        🎤 Fun Fact:
-        Despite being called the Book of the Dead, it’s actually more about life—eternal life.
-        It shows us how the Egyptians viewed death not as an end, but a transition.
-        So as we wrap up our journey, remember: this papyrus isn't just ink on scroll—
-        it’s a voice from across millennia, whispering secrets of an ancient world’s hopes, fears, and beliefs about what lies beyond.</p>
-    <button class="button" onclick="returnHome()">Check Again</button>
+  <div id="papyrus" class="exhibit hidden w-full max-w-3xl border rounded-lg p-6 md:p-8 mt-4 shadow-xl">
+    <h2 class="text-2xl md:text-3xl font-bold mb-4">Papyrus of Ani</h2>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Papyrus_Ani_curs_hiero.jpg/1920px-Papyrus_Ani_curs_hiero.jpg"
+         alt="Papyrus of Ani"
+         onerror="this.onerror=null; this.src='https://placehold.co/800x300/1a1a1a/e0e0e0?text=Papyrus+Image';"
+         class="w-full rounded-md my-4 border border-gray-700">
+    <audio controls src="Papyrus_of_Ani.mp3" class="w-full mt-4"></audio>
+    <p class="mt-4 leading-relaxed whitespace-pre-line text-gray-300">
+🎙️ Tour Guide Script – The Papyrus of Ani
+Welcome, everyone! Gather 'round as we step back over 3,000 years into ancient Egypt—magic, and the afterlife.
+Today, we're exploring one of the most beautiful and significant treasures of ancient Egyptian culture: The Papyrus of Ani.
+
+📜 What Is It?
+The Papyrus of Ani is a Book of the Dead—a funerary text created to guide the deceased through the treacherous journey of the afterlife.
+Think of it as a spiritual map and survival guide, filled with spells, prayers, and illustrations.
+This particular papyrus was made for a scribe named Ani, who lived around 1250 BCE during Egypt’s 19th Dynasty.
+
+👨‍💼 Who Was Ani?
+Ani was a high-ranking scribe in Thebes, likely someone of wealth and influence.
+Because of his status, his Book of the Dead was incredibly lavish, written in cursive hieroglyphs and adorned with vivid, detailed illustrations—some of the finest ever discovered.
+
+🎨 Highlights of the Scroll
+The scroll itself is over 78 feet long and features scenes like:
+•   The Weighing of the Heart, where Ani’s heart is weighed against the feather of Ma’at, goddess of truth.
+If balanced, he passes into the afterlife. If not... well, he’s devoured by the fearsome creature Ammit!
+•   Prayers to Ra, the sun god, to grant safe passage through the underworld.
+•   Spells for Transformation, like becoming a falcon or lotus, to navigate the spirit world more easily.
+
+📍 Where Is It Now?
+You can find this masterpiece at the British Museum in London, where it was brought in the late 19th century.
+It was painstakingly unrolled, studied, and is now digitally preserved for the world to admire.
+
+🎤 Fun Fact:
+Despite being called the Book of the Dead, it’s actually more about life—eternal life.
+It shows us how the Egyptians viewed death not as an end, but a transition.
+So as we wrap up our journey, remember: this papyrus isn't just ink on scroll—
+it’s a voice from across millennia, whispering secrets of an ancient world’s hopes, fears, and beliefs about what lies beyond.
+    </p>
+    <button class="button text-gray-900 font-semibold py-2 px-4 rounded-md mt-6 block mx-auto" onclick="returnHome()">Check Again</button>
   </div>
 
-  <div id="smartwatch" class="exhibit">
-    <h2>Apple Watch Series 8</h2>
-    <img src="apple-watch.jpg" alt="Apple Watch">
-    <p>Welcome, my friend — you’re not just here for a watch... you’re here for the future on your wrist.
-        Apple Watch Series 8 — this isn’t just any smartwatch. This is a precision-engineered piece of wearable intelligence. Crafted with a sleek aluminum or stainless steel case, edge-to-edge always-on Retina display, and the kind of tech under the hood that makes it a silent powerhouse.
-        
-        Health tracking? Boom. The Series 8 brings you an upgraded temperature sensor, perfect for cycle tracking and monitoring overnight changes like never before.
-        
-        ECG? Blood Oxygen? Fall Detection? Crash Detection? All built-in. This isn’t just wellness — this is emergency-ready technology that can literally save your life.
-        
-        Stay connected without reaching for your phone — take calls, reply to texts, stream music, even use Apple Pay — right from your wrist. With cellular models, leave your phone at home and still be 100% in the loop.
-        
-        Under the hood? You’re working with the S8 SiP chip, fast, efficient, and optimized for smooth multitasking. Battery life? A full day — and with Low Power Mode, you’re getting up to 36 hours.
-        
-        Style? Midnight, Starlight, Silver, and Product(RED) — match it with any band from sporty to luxurious and boom — you're flexing personal style and smart tech in one go.
-        
-        So whether you're an athlete, a tech-head, or just someone who likes to stay one step ahead, the Series 8 isn’t just a smart choice — it's the smartest choice.
-        
-        Ready to seal the deal? Because I’ve got one right here, ready to go home with you today — unbox the future.</p>
-    <button class="button" onclick="returnHome()">Check Again</button>
+  <div id="smartwatch" class="exhibit hidden w-full max-w-3xl border rounded-lg p-6 md:p-8 mt-4 shadow-xl">
+    <h2 class="text-2xl md:text-3xl font-bold mb-4">Apple Watch Series 8</h2>
+    <img src="https://support.apple.com/library/content/dam/edam/applecare/images/en_US/applewatch/features/watchos9-series8-temperature-sensing-hero.png"
+         alt="Apple Watch Series 8"
+         onerror="this.onerror=null; this.src='https://placehold.co/600x400/1a1a1a/e0e0e0?text=Apple+Watch+Image';"
+         class="w-full max-w-sm mx-auto rounded-md my-4 border border-gray-700">
+    <p class="mt-4 leading-relaxed whitespace-pre-line text-gray-300">
+Welcome, my friend — you’re not just here for a watch... you’re here for the future on your wrist.
+Apple Watch Series 8 — this isn’t just any smartwatch. This is a precision-engineered piece of wearable intelligence. Crafted with a sleek aluminum or stainless steel case, edge-to-edge always-on Retina display, and the kind of tech under the hood that makes it a silent powerhouse.
+
+Health tracking? Boom. The Series 8 brings you an upgraded temperature sensor, perfect for cycle tracking and monitoring overnight changes like never before.
+
+ECG? Blood Oxygen? Fall Detection? Crash Detection? All built-in. This isn’t just wellness — this is emergency-ready technology that can literally save your life.
+
+Stay connected without reaching for your phone — take calls, reply to texts, stream music, even use Apple Pay — right from your wrist. With cellular models, leave your phone at home and still be 100% in the loop.
+
+Under the hood? You’re working with the S8 SiP chip, fast, efficient, and optimized for smooth multitasking. Battery life? A full day — and with Low Power Mode, you’re getting up to 36 hours.
+
+Style? Midnight, Starlight, Silver, and Product(RED) — match it with any band from sporty to luxurious and boom — you're flexing personal style and smart tech in one go.
+
+So whether you're an athlete, a tech-head, or just someone who likes to stay one step ahead, the Series 8 isn’t just a smart choice — it's the smartest choice.
+
+Ready to seal the deal? Because I’ve got one right here, ready to go home with you today — unbox the future.
+    </p>
+    <button class="button text-gray-900 font-semibold py-2 px-4 rounded-md mt-6 block mx-auto" onclick="returnHome()">Check Again</button>
   </div>
 
-  <div id="tesla" class="exhibit">
-    <h2>Tesla Cybertruck</h2>
-    <img src="Tesla.jpg" alt="Tesla Cybertruck">
-    <p>🚀 Welcome to the future of utility—meet the Tesla Cybertruck.
-        Forget everything you thought you knew about pickup trucks. The Cybertruck doesn’t just break the mold—it shatters it. With its radical design, military-grade toughness, and all-electric powertrain, this is a vehicle built for both rugged adventures and cutting-edge innovation.
-        🛡️ Ultra-Hard Exterior
-        This isn't your average truck body. The Cybertruck is made from cold-rolled stainless steel, the same material used in rockets. It’s dent-resistant, corrosion-resistant, and designed to take a beating. Tesla even showed it withstanding sledgehammers in testing—this thing means business.
-        💪 Extreme Performance
-        Need muscle? The Cybertruck can tow over 14,000 pounds and carry up to 3,500 pounds of payload. It accelerates from 0 to 60 in as little as 2.6 seconds in the tri-motor version—yes, faster than many sports cars, and it’s a truck.
-        🔋 Massive Range
-        With up to 500 miles of range on a single charge (tri-motor variant), you can take the Cybertruck across long distances without range anxiety. Whether you’re heading off-road or off-grid, it’s got you covered.
-        🧠 Tech-Savvy Interior
-        Inside the cabin, you’ll find a sleek, minimalistic design powered by a 17-inch touchscreen and seating for six. It’s futuristic yet functional, with Tesla's signature infotainment system and Full Self-Driving capability (optional), so your truck keeps getting better over time.
-        🌐 Versatility & Utility
-        From the retractable tonneau cover to the adaptive air suspension that adjusts ride height, the Cybertruck is engineered for flexibility. It features a built-in ramp, 120V/240V outlets, and even has room for a tent and a kitchen in the bed with Tesla’s optional camping setup.
-        🔌 Charge Anywhere
-        With access to the Tesla Supercharger network and options for solar integration, you’re never far from your next charge—even off the grid.
-        🔥 The Cool Factor
-        Let’s be honest—there’s nothing else like it on the road. Heads will turn, jaws will drop, and you’ll know you’re driving not just a truck—but a statement.</p>
-    <button class="button" onclick="returnHome()">Check Again</button>
+  <div id="tesla" class="exhibit hidden w-full max-w-3xl border rounded-lg p-6 md:p-8 mt-4 shadow-xl">
+    <h2 class="text-2xl md:text-3xl font-bold mb-4">Tesla Cybertruck</h2>
+    <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Cybertruck-Main-Hero-Desktop-LHD.jpg"
+         alt="Tesla Cybertruck"
+         onerror="this.onerror=null; this.src='https://placehold.co/800x450/1a1a1a/e0e0e0?text=Cybertruck+Image';"
+         class="w-full rounded-md my-4 border border-gray-700">
+     <p class="mt-4 leading-relaxed whitespace-pre-line text-gray-300">
+🚀 Welcome to the future of utility—meet the Tesla Cybertruck.
+Forget everything you thought you knew about pickup trucks. The Cybertruck doesn’t just break the mold—it shatters it. With its radical design, military-grade toughness, and all-electric powertrain, this is a vehicle built for both rugged adventures and cutting-edge innovation.
+
+🛡️ Ultra-Hard Exterior
+This isn't your average truck body. The Cybertruck is made from cold-rolled stainless steel, the same material used in rockets. It’s dent-resistant, corrosion-resistant, and designed to take a beating. Tesla even showed it withstanding sledgehammers in testing—this thing means business.
+
+💪 Extreme Performance
+Need muscle? The Cybertruck can tow over 14,000 pounds and carry up to 3,500 pounds of payload. It accelerates from 0 to 60 in as little as 2.6 seconds in the tri-motor version—yes, faster than many sports cars, and it’s a truck.
+
+🔋 Massive Range
+With up to 500 miles of range on a single charge (tri-motor variant), you can take the Cybertruck across long distances without range anxiety. Whether you’re heading off-road or off-grid, it’s got you covered.
+
+🧠 Tech-Savvy Interior
+Inside the cabin, you’ll find a sleek, minimalistic design powered by a 17-inch touchscreen and seating for six. It’s futuristic yet functional, with Tesla's signature infotainment system and Full Self-Driving capability (optional), so your truck keeps getting better over time.
+
+🌐 Versatility & Utility
+From the retractable tonneau cover to the adaptive air suspension that adjusts ride height, the Cybertruck is engineered for flexibility. It features a built-in ramp, 120V/240V outlets, and even has room for a tent and a kitchen in the bed with Tesla’s optional camping setup.
+
+🔌 Charge Anywhere
+With access to the Tesla Supercharger network and options for solar integration, you’re never far from your next charge—even off the grid.
+
+🔥 The Cool Factor
+Let’s be honest—there’s nothing else like it on the road. Heads will turn, jaws will drop, and you’ll know you’re driving not just a truck—but a statement.
+    </p>
+    <button class="button text-gray-900 font-semibold py-2 px-4 rounded-md mt-6 block mx-auto" onclick="returnHome()">Check Again</button>
   </div>
 
-  <footer>
+  <footer class="mt-12 text-center text-gray-500 text-sm">
     Pulse Codes → 3: Mona Lisa | 4: Papyrus of Ani | 5: Smart Watch | 6: Tesla Cybertruck
+    <p class="mt-2">&copy; 2025 QUANTRON TEAM</p>
   </footer>
 
   <script>
+    // --- DOM Elements ---
     const video = document.getElementById("video");
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
+    const canvas = document.getElementById("processingCanvas"); // Use the hidden canvas
+    const ctx = canvas.getContext("2d", { willReadFrequently: true }); // Optimize for frequent reading
 
+    // --- Exhibit Mapping ---
+    // Maps pulse count to the ID of the exhibit div
     const exhibits = {
-      2: "monaLisa",
-      3: "monaLisa",
-      4: "papyrus",
-      5: "papyrus",
-      6: "smartwatch",
-      7: "smartwatch",
-      8: "tesla",
-      9: "tesla"
+      3: "monaLisa", // 3 pulses show Mona Lisa
+      4: "papyrus",  // 4 pulses show Papyrus
+      5: "smartwatch",// 5 pulses show Smart Watch
+      6: "tesla"     // 6 pulses show Tesla
+      // Note: Original code had overlaps (2/3, 4/5 etc.). This version uses distinct counts. Adjust if needed.
     };
+    // Get all exhibit elements for easier showing/hiding
+    const exhibitElements = Object.values(exhibits).map(id => document.getElementById(id));
 
+    // --- Region of Interest (ROI) Configuration ---
+    // Define the area to analyze as percentages of the video width/height.
+    // Adjust these values to tightly frame your LED in the camera view.
+    const ROI = {
+        x: 0.4, // Start 40% from the left edge
+        y: 0.4, // Start 40% from the top edge
+        width: 0.2, // Analyze 20% of the width
+        height: 0.2 // Analyze 20% of the height
+    };
+    // Object to store calculated pixel coordinates for the ROI
+    let roiPixels = { x: 0, y: 0, w: 0, h: 0 };
+
+    // --- Pulse Detection Parameters ---
     let pulseCount = 0;
     let lastBrightness = null;
     let lastFlashTime = 0;
-    const pulseThreshold = 50;
-    const debounceTime = 200;
-    const decisionDelay = 2000;
-    let decisionTimeout = null;
-    let detecting = true;
-    let stream = null;
+    const pulseThreshold = 40; // Brightness DIFFERENCE needed to count as a pulse (tune this!)
+    const debounceTime = 150;  // Minimum ms between detected pulses (prevents double counts)
+    const decisionDelay = 1500; // Wait this long (ms) after the last pulse before deciding
+    let decisionTimeout = null; // Stores the timer for making a decision
+    let detecting = false;      // Flag to control if detection loop is active
+    let stream = null;          // To hold the camera stream object
 
+    /**
+     * Calculates the average brightness of the pixels within an ImageData object.
+     * @param {ImageData} frame - The ImageData object (potentially from the ROI).
+     * @returns {number} The average brightness (0-255).
+     */
     function getBrightness(frame) {
-      let total = 0;
-      for (let i = 0; i < frame.data.length; i += 4) {
-        total += (frame.data[i] + frame.data[i+1] + frame.data[i+2]) / 3;
-      }
-      return total / (frame.data.length / 4);
-    }
-
-    function detectPulse() {
-      if (!detecting) return;
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const brightness = getBrightness(frame);
-      const now = Date.now();
-
-      if (lastBrightness !== null) {
-        const diff = brightness - lastBrightness;
-        if (diff > pulseThreshold && now - lastFlashTime > debounceTime) {
-          pulseCount++;
-          lastFlashTime = now;
-          if (decisionTimeout) clearTimeout(decisionTimeout);
-          decisionTimeout = setTimeout(() => {
-            handlePulseDecision(pulseCount);
-            pulseCount = 0;
-          }, decisionDelay);
+        let total = 0;
+        // Safety check for valid frame data
+        if (!frame || !frame.data || frame.data.length === 0) {
+            // console.warn("getBrightness: Invalid frame data received.");
+            return 0;
         }
-      }
+        const numPixels = frame.data.length / 4; // 4 components: R, G, B, A
+        if (numPixels === 0) return 0; // Avoid division by zero
 
-      lastBrightness = brightness;
-      requestAnimationFrame(detectPulse);
+        // Loop through pixel data (RGBA)
+        for (let i = 0; i < frame.data.length; i += 4) {
+            // Average the R, G, B values for grayscale brightness
+            total += (frame.data[i] + frame.data[i+1] + frame.data[i+2]) / 3;
+        }
+        return total / numPixels; // Return average brightness
     }
 
+    /**
+     * Main loop to detect light pulses within the defined ROI.
+     */
+    function detectPulse() {
+        // Stop if detection is disabled or video isn't ready
+        if (!detecting || !video.srcObject || video.readyState < video.HAVE_METADATA || video.videoWidth === 0) {
+            // Request the next frame slightly later if video isn't ready yet
+            if (!detecting) return; // Exit if detection was explicitly stopped
+            requestAnimationFrame(detectPulse);
+            return;
+        }
+
+        // Set canvas dimensions to match video feed
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+
+        // --- Calculate ROI pixel coordinates ---
+        // Recalculate if they haven't been set or if video dimensions changed
+        const currentRoiW = Math.floor(canvas.width * ROI.width);
+        const currentRoiH = Math.floor(canvas.height * ROI.height);
+        if (roiPixels.w !== currentRoiW || roiPixels.h !== currentRoiH) {
+             roiPixels.x = Math.floor(canvas.width * ROI.x);
+             roiPixels.y = Math.floor(canvas.height * ROI.y);
+             roiPixels.w = Math.max(1, currentRoiW); // Ensure at least 1 pixel
+             roiPixels.h = Math.max(1, currentRoiH); // Ensure at least 1 pixel
+             // Clamp ROI to stay within canvas bounds
+             roiPixels.x = Math.min(canvas.width - roiPixels.w, Math.max(0, roiPixels.x));
+             roiPixels.y = Math.min(canvas.height - roiPixels.h, Math.max(0, roiPixels.y));
+             console.log("ROI calculated (pixels):", roiPixels); // Debugging
+        }
+
+        // Draw the current video frame onto the hidden canvas
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        // --- Get image data ONLY from the Region of Interest (ROI) ---
+        let frameData = null;
+        try {
+            // Make sure ROI dimensions are valid before getting data
+            if (roiPixels.w > 0 && roiPixels.h > 0) {
+                 frameData = ctx.getImageData(roiPixels.x, roiPixels.y, roiPixels.w, roiPixels.h);
+            } else {
+                 console.warn("ROI dimensions are invalid:", roiPixels);
+            }
+        } catch (e) {
+            console.error("Error getting ImageData for ROI:", e, roiPixels);
+            // Continue to next frame if error occurs
+            requestAnimationFrame(detectPulse);
+            return;
+        }
+
+        // --- Optional: Draw ROI rectangle on the *visible* video for debugging ---
+        // const visibleCtx = video.getContext ? video.getContext('2d') : null; // This won't work directly on <video>
+        // You'd need another *visible* canvas layered over the video to draw the debug rectangle.
+        // Or, temporarily make the 'processingCanvas' visible.
+        // ctx.strokeStyle = "red";
+        // ctx.lineWidth = 2;
+        // ctx.strokeRect(roiPixels.x, roiPixels.y, roiPixels.w, roiPixels.h);
+        // --- End Optional Debug Drawing ---
+
+        // Calculate brightness within the ROI
+        const brightness = getBrightness(frameData);
+        const now = Date.now();
+
+        // --- Pulse Detection Logic ---
+        if (lastBrightness !== null) {
+            const diff = brightness - lastBrightness; // Calculate change from last frame
+
+            // Check for a significant brightness increase (a flash)
+            // Ensure enough time has passed since the last flash (debounce)
+            if (diff > pulseThreshold && now - lastFlashTime > debounceTime) {
+                pulseCount++;
+                lastFlashTime = now; // Record time of this flash
+                console.log(`Pulse detected! Count: ${pulseCount}, Brightness: ${brightness.toFixed(1)}, Diff: ${diff.toFixed(1)}`); // Debugging
+
+                // Reset the decision timer every time a new pulse is detected
+                if (decisionTimeout) clearTimeout(decisionTimeout);
+                decisionTimeout = setTimeout(() => {
+                    // This function runs 'decisionDelay' ms *after* the last detected pulse
+                    handlePulseDecision(pulseCount);
+                    pulseCount = 0; // Reset count for the next sequence
+                }, decisionDelay);
+            }
+        }
+
+        lastBrightness = brightness; // Store current brightness for the next frame comparison
+
+        // Continue the detection loop
+        requestAnimationFrame(detectPulse);
+    }
+
+    /**
+     * Handles the decision based on the final pulse count.
+     * @param {number} count - The number of pulses detected.
+     */
     function handlePulseDecision(count) {
-      detecting = false;
-      const exhibitId = exhibits[count];
-      if (exhibitId) {
-        stopCamera();
-        document.getElementById("video").style.display = "none";
-        document.getElementById(exhibitId).style.display = "block";
-      } else {
-        pulseCount = 0;
-        lastBrightness = null;
-        detecting = true;
-        detectPulse();
-      }
+        console.log(`Decision time! Final pulse count: ${count}`); // Debugging
+        detecting = false; // Stop detection while showing exhibit
+        const exhibitId = exhibits[count]; // Find the exhibit matching the count
+
+        if (exhibitId) {
+            console.log(`Showing exhibit: ${exhibitId}`); // Debugging
+            stopCamera(); // Turn off the camera
+            video.classList.add("hidden"); // Hide the video element
+
+            // Hide all exhibits first
+            exhibitElements.forEach(el => el.classList.add("hidden"));
+
+            // Show the selected exhibit
+            const exhibitToShow = document.getElementById(exhibitId);
+            if (exhibitToShow) {
+                exhibitToShow.classList.remove("hidden");
+                // Attempt to play audio if present
+                const audioPlayer = exhibitToShow.querySelector('audio');
+                if (audioPlayer) {
+                    audioPlayer.play().catch(e => console.log("Audio autoplay prevented:", e)); // Play audio, handle potential browser restrictions
+                    audioPlayer.currentTime = 0; // Rewind audio
+                }
+            } else {
+                console.error(`Exhibit element with ID '${exhibitId}' not found!`);
+                returnHome(); // Go back home if exhibit doesn't exist
+            }
+        } else {
+            console.log("No exhibit matches the pulse count. Resetting."); // Debugging
+            // If count doesn't match any exhibit, just reset and start detecting again
+            pulseCount = 0;
+            lastBrightness = null;
+            detecting = true; // Re-enable detection
+            requestAnimationFrame(detectPulse); // Restart the loop immediately
+        }
     }
 
+    /**
+     * Returns the view to the initial state (camera feed).
+     */
     function returnHome() {
-      Object.values(exhibits).forEach(id => {
-        document.getElementById(id).style.display = "none";
-      });
-      document.getElementById("video").style.display = "block";
-      startCamera();
-    }
-
-    function startCamera() {
-      navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } })
-        .then(s => {
-          stream = s;
-          video.srcObject = stream;
-          video.onloadedmetadata = () => {
-            detecting = true;
-            detectPulse();
-          };
-        })
-        .catch(err => {
-          alert("Camera access is required to detect light pulses.");
-          console.error(err);
+        console.log("Returning home."); // Debugging
+        // Hide all exhibit elements
+        exhibitElements.forEach(el => {
+            el.classList.add("hidden");
+            // Pause and reset any audio players within exhibits
+            const audioPlayer = el.querySelector('audio');
+            if (audioPlayer) {
+                audioPlayer.pause();
+                audioPlayer.currentTime = 0;
+            }
         });
+
+        video.classList.remove("hidden"); // Show the video element
+        startCamera(); // Restart the camera and detection
     }
 
+    /**
+     * Starts the camera stream and initiates pulse detection.
+     */
+    function startCamera() {
+        // Stop any existing stream first
+        stopCamera();
+
+        console.log("Attempting to start camera..."); // Debugging
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } }) // Request front camera
+            .then(mediaStream => {
+                console.log("Camera access granted."); // Debugging
+                stream = mediaStream; // Store the stream
+                video.srcObject = stream; // Assign stream to video element
+                video.onloadedmetadata = () => {
+                    console.log("Video metadata loaded. Starting detection."); // Debugging
+                    video.play(); // Ensure video is playing
+                    // Reset detection state variables
+                    pulseCount = 0;
+                    lastBrightness = null;
+                    lastFlashTime = 0;
+                    if (decisionTimeout) clearTimeout(decisionTimeout);
+                    detecting = true; // Enable detection flag
+                    requestAnimationFrame(detectPulse); // Start the detection loop
+                };
+                 video.onerror = (e) => {
+                    console.error("Video element error:", e);
+                    alert("There was an error with the video stream.");
+                 }
+            })
+            .catch(err => {
+                // Log specific errors
+                console.error("Error accessing camera:", err.name, err.message);
+                if (err.name === "NotAllowedError") {
+                    alert("Camera access was denied. Please allow camera access in your browser settings to use this feature.");
+                } else if (err.name === "NotFoundError" || err.name === "DevicesNotFoundError") {
+                     alert("No camera found on this device.");
+                } else {
+                    alert("Could not access camera. Please ensure it's not in use by another application and try again.");
+                }
+            });
+    }
+
+    /**
+     * Stops the camera stream tracks.
+     */
     function stopCamera() {
-      if (stream) {
-        stream.getTracks().forEach(track => track.stop());
-        stream = null;
-      }
+        if (stream) {
+            console.log("Stopping camera stream."); // Debugging
+            stream.getTracks().forEach(track => track.stop()); // Stop all tracks
+            stream = null; // Clear the stream variable
+            video.srcObject = null; // Remove stream from video element
+        }
+        detecting = false; // Ensure detection stops
+        if (decisionTimeout) clearTimeout(decisionTimeout); // Clear any pending decision
     }
 
+    // --- Initial Setup ---
+    // Add event listener to ensure camera is stopped when page is closed/hidden
+    window.addEventListener('pagehide', stopCamera);
+    window.addEventListener('beforeunload', stopCamera);
+
+    // Start the camera automatically when the page loads
     startCamera();
+
   </script>
 </body>
 </html>
